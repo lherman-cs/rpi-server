@@ -1,0 +1,7 @@
+aria2/aria2.log
+aria2/session.gz
+data/*
+!data/README.rst
+plex/*
+keys/*
+

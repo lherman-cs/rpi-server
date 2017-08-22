@@ -1,0 +1,44 @@
+version: '3.3'
+
+services:
+  nginx:
+    image: lherman/arm-nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - 8443:8443
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ${KEY_DIR}:/mnt
+    depends_on:
+      - aria
+      - plex
+      - docker-ui
+  aria:
+    image: lherman/aria2
+    container_name: aria
+    restart: always
+    expose:
+      - 6800
+      - 8080
+    volumes:
+      - ./aria2:/data/.aria2
+      - ./data:/data
+      - ${KEY_DIR}:/mnt
+  plex:
+    image: greensheep/plex-server-docker-rpi:0.9.16.6
+    container_name: plex
+    restart: always
+    expose:
+      - 32400
+    volumes:
+      - ./plex:/config
+      - ./data:/data
+  docker-ui:
+    image: portainer/portainer
+    container_name: docker-ui
+    restart: always
+    expose:
+      - 9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
