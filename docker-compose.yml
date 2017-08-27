@@ -35,14 +35,14 @@ services:
     volumes:
       - ./data:/go/src/app/data
   plex:
-    image: greensheep/plex-server-docker-rpi:0.9.16.6
+    image: jaymoulin/rpi-plex
     container_name: plex
     restart: always
     expose:
       - 32400
     volumes:
-      - ./plex:/config
-      - ./data:/data
+      - ./plex:/media
+      - ./data:/root/Library
   docker-ui:
     image: portainer/portainer
     container_name: docker-ui
