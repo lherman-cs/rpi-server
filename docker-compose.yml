@@ -12,6 +12,7 @@ services:
       - ${KEY_DIR}:/mnt
     depends_on:
       - aria
+      - ytdl
       - plex
       - docker-ui
   aria:
@@ -25,6 +26,14 @@ services:
       - ./aria2:/data/.aria2
       - ./data:/data
       - ${KEY_DIR}:/mnt
+  ytdl:
+    image: lherman/ytdl-webui
+    container_name: ytdl
+    restart: always
+    expose:
+      - 1323
+    volumes:
+      - ./data:/go/src/app/data
   plex:
     image: greensheep/plex-server-docker-rpi:0.9.16.6
     container_name: plex
